@@ -82,11 +82,23 @@
                         construction.</p>
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
-                    <h4 class="text-white">Contact</h4>
+                    <h4 class="text-white">User</h4>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                        <li><a href="#" class="text-white">Like on Facebook</a></li>
-                        <li><a href="#" class="text-white">Email me</a></li>
+<!--                        <li><a href="#" class="text-white">Follow on Twitter</a></li>-->
+<!--                        <li><a href="#" class="text-white">Like on Facebook</a></li>-->
+                        <li>
+                            {{if .Name}}
+                            <button href="" type="button" class="btn btn-primary" title="logout">
+                                {{.Name}}
+                                <i class="fa fa-sign-out-alt "></i>
+                            </button>
+                            {{else}}
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login">
+                                <i class="fa fa-user-circle"></i>
+                               Login
+                            </button>
+                            {{end}}
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -105,19 +117,9 @@
 
                 <strong>Timtube</strong>
             </a>
-            <div class="row">
-
-                <div class="col px-2 pb-1">
-                    <a class="fa fa-user-circle fa-2x my-2" type="button">
-                    </a>
-                </div>
-                <div class="col">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-                            aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </div>
 </header>
@@ -126,16 +128,15 @@
         <div class="row py-lg-5">
             <div class="card ">
                 <div class="row g-0 ">
-                    <div class="col-md-8">
-                        {{if .VideoData.FileSize}}
-                        <video width="100%" height="100%" controls>
-                            <source src="data:video/mp4;base64,{{.VideoData.FileSize}}" type="video/mp4">
-                            <source src="data:video/mp4;base64,{{.VideoData.FileSize}}" type="video/ogg">
-                            Your browser does not support the video tag.
-                        </video>
+                    <div class="col-md-8" id="mainPlayer">
+                        {{if  .VideoData.FileSize}}
+                        <div class="col-12" id="movie" style="height: 100%;">
+                            <div class="spinner-border mx-2" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         {{else}}
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
                         {{end}}
                     </div>
                     <div class="col-md-4">
@@ -294,9 +295,10 @@
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
+
                     {{with .Public}}
                     {{range .}}
+                <div class="col">
                     <div class="card shadow-sm video">
                         <img class="" src="data:image/png;base64,{{.VideoData.FileType}}" width="100%" height="225"/>
                         <a href="/play/{{.Video.Id}}"><i class="fas fa-play fa-4x"
@@ -312,9 +314,10 @@
                             </div>
                         </div>
                     </div>
-                    {{end}}
-                    {{end}}
                 </div>
+                    {{end}}
+                    {{end}}
+
             </div>
         </div>
     </div>
@@ -324,12 +327,116 @@
         <p class="float-end mb-1">
             <a href="#top">Back to top</a>
         </p>
-        <p class="mb-1">Timtube is an entertainment</p>
+        <p class="mb-1">Timtube is an entertainment platform</p>
         <p class="mb-0">Designed and developed with love by <a href="ditkay.com">Ditkay</a> .</p>
     </div>
 </footer>
+
+
+<!-- Modal -->
+<div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="user" action="/user/account/register" method="post">
+                    <div class="form-group row">
+                        <div class="mb-3">
+                            <input type="text" name="name" class="form-control form-control-user" id="exampleFirstName"
+                                   placeholder="First Name"required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="lastName" class="form-control form-control-user" id="exampleLastName"
+                                   placeholder="Last Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail"
+                               placeholder="Email Address" required>
+                    </div>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <input type="password" name="password" class="form-control form-control-user"
+                                   id="exampleInputPassword" placeholder="Password" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control form-control-user"
+                                   id="exampleRepeatPassword" placeholder="Repeat Password" required>
+                            <span id='message'></span>
+                        </div>
+                    </div>
+                    <button type="submit" id="registerbtn" class="btn btn-primary btn-user btn-block">
+                        Register Account
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="user" action="/user/account/login" method="post">
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control form-control-user"aria-describedby="emailHelp"
+                               placeholder="Enter Email Address...">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control form-control-user"
+                                placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                            <label class="custom-control-label" for="customCheck">Remember
+                                Me</label>
+                        </div>
+                    </div>
+                    <button  type="submit" class="btn btn-primary btn-user btn-block">
+                        Login
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup" data-bs-dismiss="modal">
+                    <i class="fa fa-user-circle"></i>
+                    Signup
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
+<script>
+    window.onload = function (){
+        var mainPlayerVideo = "";
+        var mainPlayer = document.getElementById("movie");
+        console.log("get movie div");
+        var video = {{.VideoData.FileSize}};
+        if (video!==""){
+            console.log("get movie div");
+             mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="data:video/mp4;base64,'+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
+
+        }else{
+             mainPlayerVideo = '<svg className="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>'
+        }
+        mainPlayer.innerHTML = mainPlayerVideo;
+    }
+
+</script>
 </html>

@@ -8,6 +8,8 @@ import (
 	"html/template"
 	"net/http"
 	"timtube/config"
+	user3 "timtube/controller/user"
+	"timtube/controller/util"
 	"timtube/domain"
 	user "timtube/io/video/video-data"
 )
@@ -22,6 +24,8 @@ func Controllers(env *config.Env) http.Handler {
 	//mux.Handle("/", homeHandler(env))
 	mux.Handle("/", homeHandler(env))
 	mux.Handle("/play/{id}", homePlayHandler(env))
+	mux.Mount("/user", user3.Home(env))
+	mux.Handle("/out", outHandler(env))
 
 	fileServer := http.FileServer(http.Dir("./view/assets/"))
 	// Use the mux.Handle() function to register the file server as the handler for
@@ -31,8 +35,16 @@ func Controllers(env *config.Env) http.Handler {
 	return mux
 }
 
+func outHandler(env *config.Env) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		env.Session.Clear(r.Context())
+		http.Redirect(w, r, "/", 301)
+		return
+	}
+}
 func homePlayHandler(app *config.Env) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		email, name, surname, role := util.GetPermenentSession(app, r)
 		id := chi.URLParam(r, "id")
 		var videoPresentation []domain.VideoVideoData
 		var message string
@@ -52,13 +64,23 @@ func homePlayHandler(app *config.Env) http.HandlerFunc {
 				fmt.Println(err, "error reading Video Data")
 			}
 		}
+		if role != "" {
+			role, err = util.GetRoleName(role)
+			if err != nil {
+				fmt.Println("No Role")
+			}
+		}
 		type PageData struct {
 			Public    []domain.VideoVideoData
 			Message   string
 			VideoData domain.VideoData
+			Name      string
+			Surname   string
+			UserRole  string
+			Email     string
 		}
 
-		date := PageData{videoPresentation, message, VideoDataRaw}
+		date := PageData{videoPresentation, message, VideoDataRaw, name, surname, role, email}
 
 		files := []string{
 			app.Path + "index.html",
@@ -78,6 +100,7 @@ func homePlayHandler(app *config.Env) http.HandlerFunc {
 func homeHandler(app *config.Env) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		//fmt.Println(bookingLink)
+		email, name, surname, role := util.GetPermenentSession(app, r)
 		var videoPresentation []domain.VideoVideoData
 		var message string
 		var VideoDataRaw domain.VideoData
@@ -90,13 +113,23 @@ func homeHandler(app *config.Env) http.HandlerFunc {
 			sEnc := base64.StdEncoding.EncodeToString(publicVideo.VideoData.Picture)
 			videoPresentation = append(videoPresentation, domain.VideoVideoData{publicVideo.Video, domain.VideoData{publicVideo.VideoData.Id, []byte{}, []byte{}, sEnc, publicVideo.VideoData.Id}})
 		}
+		if role != "" {
+			role, err = util.GetRoleName(role)
+			if err != nil {
+				fmt.Println("No Role")
+			}
+		}
 		type PageData struct {
 			Public    []domain.VideoVideoData
 			Message   string
 			VideoData domain.VideoData
+			Name      string
+			Surname   string
+			UserRole  string
+			Email     string
 		}
 
-		date := PageData{videoPresentation, message, VideoDataRaw}
+		date := PageData{videoPresentation, message, VideoDataRaw, name, surname, role, email}
 
 		files := []string{
 			app.Path + "index.html",
