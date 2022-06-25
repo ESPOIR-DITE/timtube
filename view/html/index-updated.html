@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Timetube</title>
+    <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet"/>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        .video a {
+            position: absolute;
+            display: block;
+            background: url(https://www.flaticon.com/free-icons/play-button);
+            height: 100%;
+            width: 100%;
+            top: 75px;
+            /*left: 150px;*/
+            background-size: 50px 50px;
+            background-repeat: no-repeat;
+        }
+        .intro-image a {
+            position: absolute;
+            display: block;
+            background: url(https://www.flaticon.com/free-icons/play-button);
+            height: 100%;
+            width: 100%;
+            top: 75px;
+            /*left: 150px;*/
+            background-size: 50px 50px;
+            background-repeat: no-repeat;
+        }
+
+        .play-section .dvd{
+            height: 310px;
+
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .nav-tabs {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .nav-tabs {
+                display: flex;
+            }
+
+            .card {
+                border: none;
+            }
+
+            .card .card-header {
+                display: none;
+            }
+
+            .card .collapse {
+                display: block;
+            }
+
+            .nav-link {
+                color: #4f5050;
+            !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .tab-content > .tab-pane {
+                display: block !important;
+                opacity: 1;
+            }
+        }
+
+        .card-borderless {
+            border: none !important;
+            border-color: white !important;
+        }
+        .cropped2 {
+            /*width: 200px; !* width of container *!*/
+            height: 200px; /* height of container */
+            object-fit: cover;
+            object-position: 20% 10%; /* try 20px 10px */
+
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">About</h4>
+                    <p class="text-muted">We are a new talent and creative exposer platform. Our system is still under
+                        construction.</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">User</h4>
+                    <ul class="list-unstyled">
+                        <!--                        <li><a href="#" class="text-white">Follow on Twitter</a></li>-->
+                        <!--                        <li><a href="#" class="text-white">Like on Facebook</a></li>-->
+                        <li>
+                            {{if .Name}}
+                            <button href="" type="button" class="btn btn-primary" title="logout">
+                                {{.Name}}
+                                <i class="fa fa-sign-out-alt "></i>
+                            </button>
+                            {{else}}
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#login">
+                                <i class="fa fa-user-circle"></i>
+                                Login
+                            </button>
+                            {{end}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar navbar-dark bg-dark shadow-sm " id="top">
+        <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
+                     viewBox="0 0 24 24">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                </svg>
+
+                <strong>Timtube</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="text-center px-1">
+        <div class="row py-1 play-section">
+            <div id="video-info" class="col-md-2">
+                <div class="card  mb-3" style="height: 100%">
+                    <div class="card-body">
+                        <div class="card py-3">
+                            <i class="fa fa-video fa-5x" style="color: orangered"></i>
+                        </div>
+                        <div class="py-3">
+                            <h4 class="text-black-50">redampteur vivant</h4>
+                        </div>
+                        <div class="btn-toolbar justify-content-between text-center" role="toolbar"
+                             aria-label="Toolbar with button groups">
+                            <div class="btn-group" role="group" aria-label="First group">
+                                <button type="button" class="btn btn-secondary">204K <br> Views</button>
+                            </div>
+                            <div class="input-group">
+                                <button type="button" class="btn btn-secondary">20 <br> Likes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 dvd">
+                {{if  .VideoData.Id}}
+                <div class="col-12" id="movie" style="height: 100%;">
+                    <div class="spinner-border mt-3"  role="status">
+                        <span class="visually-hidden" size="100">Loading...</span>
+                    </div>
+                </div>
+                {{else}}
+
+                <div class="intro-image img-fluid">
+                <img class="img-fluid" src="../assets/images/kabila.png">
+<!--                <svg class="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
+                <a href="#" class="img-fluid text-center">
+                    <i class="fas fa-play-circle fa-5x" style="color: red; opacity: 75%">
+
+                    </i></a>
+                </div>
+                {{end}}
+            </div>
+            <div id="advert-tab-first" class="col-md-3">
+                <div class="card text-white bg-secondary mb-3" style="height: 100%">
+                    <div class="card-body">
+                        <i class="fa fa-star fa-1x"></i>
+                        <i class="fa fa-star fa-2x"></i>
+                        <i class="fa fa-star fa-3x" style="color: yellow"></i>
+                        <h5 class="card-title fw-lighter" style="color: yellow">Timtube Engineer</h5>
+                        <p class="card-text">We are still under construction, the design can be subject to
+                            alterations.</p>
+                        <p class="card-text">You can evolve with us, create you account today and send us feedbacks.</p>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signup"
+                                data-bs-dismiss="modal">
+                            <i class="fa fa-user-circle"></i>
+                            Signup
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </section>
+
+    <section class="py-2 px-1 row">
+        <div id="fancy-menu" class="col-md-2 py-2">
+            <div class="card card-borderless py-2 px-2">
+                <div class="card-title">Menu</div>
+                <ul class="nav flex-column ">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Music</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Shows</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Explore</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Favorites</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Playlists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Albums</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Channels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-7 col-sm-7">
+            <section id="web-caro" class="pt-1 pb-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3 class="mb-3">Your favorite channels</h3>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a class="btn btn-secondary mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
+                               data-slide="prev">
+                                <i class="fa fa-arrow-left"></i>
+                            </a>
+                            <a class="btn btn-secondary mb-3 " href="#carouselExampleIndicators2" role="button"
+                               data-slide="next">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="col-m-12">
+                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <div class="col-md-3 mb-3 text-center">
+                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                                                     xmlns="http://www.w3.org/2000/svg" role="img"
+                                                     aria-label="Placeholder: 140x140"
+                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                                    Placeholder</title>
+                                                    <rect width="100%" height="100%" fill="#777"/>
+                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                                                </svg>
+                                                <h5 class="card-title mt-2 ">Samuel Mukalenge</h5>
+                                            </div>
+                                            <div class="col-md-3 mb-3 text-center">
+                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                                                     xmlns="http://www.w3.org/2000/svg" role="img"
+                                                     aria-label="Placeholder: 140x140"
+                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                                    Placeholder</title>
+                                                    <rect width="100%" height="100%" fill="#777"/>
+                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                                                </svg>
+                                                <h5 class="card-title mt-2">Sahara Malay</h5>
+                                            </div>
+                                            <div class="col-md-3 mb-3 text-center">
+                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                                                     xmlns="http://www.w3.org/2000/svg" role="img"
+                                                     aria-label="Placeholder: 140x140"
+                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                                    Placeholder</title>
+                                                    <rect width="100%" height="100%" fill="#777"/>
+                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                                                </svg>
+                                                <h5 class="card-title mt-2">Naseya Mukalenge</h5>
+                                            </div>
+                                            <div class="col-md-3 mb-3 text-center">
+                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                                                     xmlns="http://www.w3.org/2000/svg" role="img"
+                                                     aria-label="Placeholder: 140x140"
+                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                                    Placeholder</title>
+                                                    <rect width="100%" height="100%" fill="#777"/>
+                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                                                </svg>
+                                                <h5 class="card-title mt-2">Julie Kangoma</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="row">
+
+                                            <div class="col-md-3 mb-3 text-center">
+                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                                                     xmlns="http://www.w3.org/2000/svg" role="img"
+                                                     aria-label="Placeholder: 140x140"
+                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                                    Placeholder</title>
+                                                    <rect width="100%" height="100%" fill="#777"/>
+                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                                                </svg>
+                                                <h5 class="card-title mt-2">Gideon Bernard</h5>
+                                            </div>
+                                            <div class="col-md-3 mb-3 text-center">
+                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                                                     xmlns="http://www.w3.org/2000/svg" role="img"
+                                                     aria-label="Placeholder: 140x140"
+                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                                    Placeholder</title>
+                                                    <rect width="100%" height="100%" fill="#777"/>
+                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                                                </svg>
+                                                <h5 class="card-title mt-2">Boom Boom</h5>
+                                            </div>
+                                            <div class="col-md-3 mb-3 text-center">
+                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                                                     xmlns="http://www.w3.org/2000/svg" role="img"
+                                                     aria-label="Placeholder: 140x140"
+                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                                    Placeholder</title>
+                                                    <rect width="100%" height="100%" fill="#777"/>
+                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                                                </svg>
+                                                <h5 class="card-title">Samuel Mukalenge</h5>
+                                            </div>
+                                            <div class="col-md-3 mb-3 text-center">
+                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                                                     xmlns="http://www.w3.org/2000/svg" role="img"
+                                                     aria-label="Placeholder: 140x140"
+                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                                    Placeholder</title>
+                                                    <rect width="100%" height="100%" fill="#777"/>
+                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                                                </svg>
+                                                <h5 class="card-title mt-2">Stephan Steph</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {{with .Public}}
+                {{range .}}
+                <div class="col">
+                    <div class="card shadow-sm video">
+                        <img class="cropped2" src="data:image/png;base64,{{.VideoData.FileType}}" width="100%" height="225"/>
+                        <a href="/play/{{.Video.Id}}" class="text-center"><i class="fas fa-play fa-4x"
+                                                         style="color: white; opacity: 75%"></i></a>
+                        <div class="card-body">
+                            <p class="card-text">{{.Video.Title}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm a fa-thumbs-up"></button>
+                                    <button type="button" class="btn btn-sm fa-thumbs-down"></button>
+                                </div>
+                                <small class="text-muted">{{.Video.Date}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+                {{end}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action " aria-current="true">
+                    <div class="row">
+                        <div class="col-3">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                            </svg>
+                        </div>
+                        <div class="col-7">
+                            <h6 class="card-title">Card title</h6>
+                            <p class="card-text">This is a wider card </p>
+                        </div>
+                        <div class="col-2">
+                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="row">
+                        <div class="col-3">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                            </svg>
+                        </div>
+                        <div class="col-7">
+                            <h6 class="card-title">Card title</h6>
+                            <p class="card-text">This is a wider card </p>
+                        </div>
+                        <div class="col-2">
+                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="row">
+                        <div class="col-3">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                            </svg>
+                        </div>
+                        <div class="col-7">
+                            <h6 class="card-title">Card title</h6>
+                            <p class="card-text">This is a wider card </p>
+                        </div>
+                        <div class="col-2">
+                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="row">
+                        <div class="col-3">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                            </svg>
+                        </div>
+                        <div class="col-7">
+                            <h6 class="card-title">Card title</h6>
+                            <p class="card-text">This is a wider card </p>
+                        </div>
+                        <div class="col-2">
+                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">
+                    <div class="row">
+                        <div class="col-3">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                            </svg>
+                        </div>
+                        <div class="col-7">
+                            <h6 class="card-title">Card title</h6>
+                            <p class="card-text">This is a wider card </p>
+                        </div>
+                        <div class="col-2">
+                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#top">Back to top</a>
+        </p>
+        <p class="mb-1">Timtube is an entertainment platform</p>
+        <p class="mb-0">Designed and developed with love by <a href="ditkay.com">Ditkay</a> .</p>
+    </div>
+</footer>
+<div class="modal fade " id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content bg-secondary">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="user" action="/user/account/register" method="post">
+                    <div class="form-group row">
+                        <div class="col mb-3">
+                            <input type="text" name="name" class="form-control form-control-user" id="exampleFirstName"
+                                   placeholder="First Name"required>
+                        </div>
+                        <div class="col mb-3">
+                            <input type="text" name="lastName" class="form-control form-control-user" id="exampleLastName"
+                                   placeholder="Last Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail"
+                               placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col mb-3">
+                            <input type="password" name="password" class="form-control form-control-user"
+                                   id="exampleInputPassword" placeholder="Password" required>
+                        </div>
+                        <div class="col mb-3">
+                            <input type="password" class="form-control form-control-user"
+                                   id="exampleRepeatPassword" placeholder="Repeat Password" required>
+                            <span id='message'></span>
+                        </div>
+                    </div>
+                    <button type="submit" id="registerbtn" class="btn btn-warning btn-user btn-block">
+                        Register Account
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content bg-secondary">
+            <div class="modal-header">
+                <h5 class="modal-title" >Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="user" action="/user/account/login" method="post">
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control form-control-user"aria-describedby="emailHelp"
+                               placeholder="Enter Email Address...">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control form-control-user"
+                               placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                            <label class="custom-control-label" for="customCheck">Remember
+                                Me</label>
+                        </div>
+                    </div>
+                    <button  type="submit" class="btn btn-warning btn-user btn-block">
+                        Login
+                    </button>
+                    <button type="button" class="btn btn-warning btn-user btn-block" data-bs-toggle="modal" data-bs-target="#signup" data-bs-dismiss="modal">
+                        <i class="fa fa-user-circle"></i>
+                        Signup
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</body>
+<script>
+    window.onload = function (){
+        var mainPlayerVideo = "";
+        var mainPlayer = document.getElementById("movie");
+        console.log("get movie div");
+        var video = {{.VideoData.Id}};
+        if (video!==""){
+            console.log("get movie div");
+            // mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="data:video/mp4;base64,'+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
+            // mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="http://172.18.0.5:8000/vid?videoId='+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
+            mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="http://74.208.50.103:8000/vid?videoId='+video+'" type="video/mp4"> Your browser does not support the video tag.</video> <br/>';
+
+        }else{
+            mainPlayerVideo = '<svg className="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg><br/>'
+        }
+        mainPlayer.innerHTML = mainPlayerVideo;
+    }
+    var width = screen.width;
+    console.log(width);
+    if (screen.width <= 390) {
+        console.log(width);
+        document.getElementById("video-info").setAttribute("hidden", true);
+        document.getElementById("advert-tab-first").setAttribute("hidden", true);
+        document.getElementById("fancy-menu").setAttribute("hidden", true);
+        document.getElementById("web-caro").setAttribute("hidden", true);
+    }
+
+
+</script>
+</html>

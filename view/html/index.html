@@ -129,10 +129,10 @@
             <div class="card ">
                 <div class="row g-0 ">
                     <div class="col-md-8" id="mainPlayer">
-                        {{if  .VideoData.FileSize}}
+                        {{if  .VideoData.Id}}
                         <div class="col-12" id="movie" style="height: 100%;">
-                            <div class="spinner-border mx-2" role="status">
-                                <span class="visually-hidden">Loading...</span>
+                            <div class="spinner-border mt-3"  role="status">
+                                <span class="visually-hidden" size="100">Loading...</span>
                             </div>
                         </div>
                         {{else}}
@@ -427,10 +427,12 @@
         var mainPlayerVideo = "";
         var mainPlayer = document.getElementById("movie");
         console.log("get movie div");
-        var video = {{.VideoData.FileSize}};
+        var video = {{.VideoData.Id}};
         if (video!==""){
             console.log("get movie div");
-             mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="data:video/mp4;base64,'+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
+             // mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="data:video/mp4;base64,'+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
+             // mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="http://172.18.0.5:8000/vid?videoId='+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
+             mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="http://74.208.50.103:8000/vid?videoId='+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
 
         }else{
              mainPlayerVideo = '<svg className="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>'

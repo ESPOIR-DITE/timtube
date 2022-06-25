@@ -11,6 +11,7 @@ import (
 	user3 "timtube/controller/user"
 	"timtube/controller/util"
 	"timtube/domain"
+	user2 "timtube/io/video/video"
 	user "timtube/io/video/video-data"
 )
 
@@ -48,7 +49,7 @@ func homePlayHandler(app *config.Env) http.HandlerFunc {
 		id := chi.URLParam(r, "id")
 		var videoPresentation []domain.VideoVideoData
 		var message string
-		var VideoDataRaw domain.VideoData
+		var VideoDataRaw domain.Video
 		publicVideos, err := user.ReadAllPublicVideoData()
 		if err != nil {
 			message = "Error has occurred"
@@ -59,9 +60,10 @@ func homePlayHandler(app *config.Env) http.HandlerFunc {
 			videoPresentation = append(videoPresentation, domain.VideoVideoData{publicVideo.Video, domain.VideoData{publicVideo.VideoData.Id, []byte{}, []byte{}, sEnc, publicVideo.VideoData.FileSize}})
 		}
 		if id != "" {
-			VideoDataRaw, err = user.ReadVideoRawData(id)
+			VideoDataRaw, err = user2.ReadVideo(id)
+			//VideoDataRaw, err = user.ReadVideoRawData(id)
 			if err != nil {
-				fmt.Println(err, "error reading Video Data")
+				fmt.Println(err, "error reading Video")
 			}
 		}
 		if role != "" {
@@ -73,7 +75,7 @@ func homePlayHandler(app *config.Env) http.HandlerFunc {
 		type PageData struct {
 			Public    []domain.VideoVideoData
 			Message   string
-			VideoData domain.VideoData
+			VideoData domain.Video
 			Name      string
 			Surname   string
 			UserRole  string
@@ -83,7 +85,7 @@ func homePlayHandler(app *config.Env) http.HandlerFunc {
 		date := PageData{videoPresentation, message, VideoDataRaw, name, surname, role, email}
 
 		files := []string{
-			app.Path + "index.html",
+			app.Path + "index-updated.html",
 		}
 		ts, err := template.ParseFiles(files...)
 		if err != nil {
@@ -132,7 +134,7 @@ func homeHandler(app *config.Env) http.HandlerFunc {
 		date := PageData{videoPresentation, message, VideoDataRaw, name, surname, role, email}
 
 		files := []string{
-			app.Path + "index.html",
+			app.Path + "index-updated.html",
 		}
 		ts, err := template.ParseFiles(files...)
 		if err != nil {
