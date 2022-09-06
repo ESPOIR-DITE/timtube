@@ -1,17 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" href="">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="dark">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
     <title>Timetube</title>
+    <link rel="icon">
     <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet"/>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
     <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
+    <!--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-night.min.css" rel="stylesheet">
 
     <style>
         .bd-placeholder-img {
@@ -33,6 +36,7 @@
             background-size: 50px 50px;
             background-repeat: no-repeat;
         }
+
         .intro-image a {
             position: absolute;
             display: block;
@@ -45,7 +49,7 @@
             background-repeat: no-repeat;
         }
 
-        .play-section .dvd{
+        .play-section .dvd {
             height: 310px;
 
         }
@@ -94,17 +98,41 @@
             border: none !important;
             border-color: white !important;
         }
+
         .cropped2 {
             /*width: 200px; !* width of container *!*/
             height: 200px; /* height of container */
             object-fit: cover;
             object-position: 20% 10%; /* try 20px 10px */
+        }
 
+        .intro-image {
+            width: 905px; /* width of container */
+            /*height: 200px; !* height of container *!*/
+            object-fit: cover;
+            object-position: 20% 10%; /* try 20px 10px */
+        }
+
+        .channel {
+            width: 100px; /* width of container */
+            height: 100px; /* height of container */
+            object-fit: cover;
+            object-position: 20% 10%; /* try 20px 10px */
+            /*border: 0px solid black;*/
+            border-radius: 50%;
+        }
+        .channel-video {
+            width: 50px; /* width of container */
+            height: 50px; /* height of container */
+            object-fit: cover;
+            object-position: 20% 10%; /* try 20px 10px */
+            /*border: 0px solid black;*/
+            border-radius: 50%;
         }
     </style>
 </head>
 <body>
-<header>
+<header style="border-bottom:1px solid #c1d6cc">
     <div class="collapse bg-dark" id="navbarHeader">
         <div class="container">
             <div class="row">
@@ -140,7 +168,7 @@
 
     <div class="navbar navbar-dark bg-dark shadow-sm " id="top">
         <div class="container">
-            <a href="#" class="navbar-brand d-flex align-items-center">
+            <a href="/" class="navbar-brand d-flex align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
                      viewBox="0 0 24 24">
@@ -148,74 +176,160 @@
                     <circle cx="12" cy="13" r="4"/>
                 </svg>
 
-                <strong>Timtube</strong>
+                <strong class="text-warning" style="color: #ffc107">Timtube</strong>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon " style="color: #ffc107!important;"></span>
             </button>
         </div>
     </div>
 </header>
+
 <main>
     <section class="text-center px-1">
         <div class="row py-1 play-section">
             <div id="video-info" class="col-md-2">
-                <div class="card  mb-3" style="height: 100%">
+                <div class="card  mb-3 text-white" style="height: 100%">
                     <div class="card-body">
                         <div class="card py-3">
-                            <i class="fa fa-video fa-5x" style="color: orangered"></i>
+                            <i class="fa fa-video fa-5x" style="color: #ffc107"></i>
                         </div>
                         <div class="py-3">
-                            <h4 class="text-black-50">redampteur vivant</h4>
+                            {{if .Video.Title}}
+                            <h4 class="text-white-50">{{.Video.Title}}</h4>
+                            {{else}}
+                            <h4 class="text-white-50">redampteur vivant</h4>
+                            {{end}}
                         </div>
                         <div class="btn-toolbar justify-content-between text-center" role="toolbar"
                              aria-label="Toolbar with button groups">
                             <div class="btn-group" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-secondary">204K <br> Views</button>
+                                <button type="button" class="btn btn-secondary">204K <br> <i class="fa fa-eye"></i>
+                                </button>
                             </div>
                             <div class="input-group">
-                                <button type="button" class="btn btn-secondary">20 <br> Likes</button>
+                                <button type="button" class="btn btn-secondary">20 <br> <i class="fa fa-thumbs-up"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-7 dvd">
-                {{if  .VideoData.Id}}
+                {{if .Video.Id}}
                 <div class="col-12" id="movie" style="height: 100%;">
-                    <div class="spinner-border mt-3"  role="status">
+                    <div class="spinner-border mt-3" role="status">
                         <span class="visually-hidden" size="100">Loading...</span>
                     </div>
                 </div>
                 {{else}}
 
                 <div class="intro-image img-fluid">
-                <img class="img-fluid" src="../assets/images/kabila.png">
-<!--                <svg class="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
-                <a href="#" class="img-fluid text-center">
-                    <i class="fas fa-play-circle fa-5x" style="color: red; opacity: 75%">
+                    <img class="img-fluid" src="../assets/images/timtube.png">
+                    <!--                <svg class="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
 
-                    </i></a>
                 </div>
                 {{end}}
             </div>
-            <div id="advert-tab-first" class="col-md-3">
-                <div class="card text-white bg-secondary mb-3" style="height: 100%">
-                    <div class="card-body">
-                        <i class="fa fa-star fa-1x"></i>
-                        <i class="fa fa-star fa-2x"></i>
-                        <i class="fa fa-star fa-3x" style="color: yellow"></i>
-                        <h5 class="card-title fw-lighter" style="color: yellow">Timtube Engineer</h5>
-                        <p class="card-text">We are still under construction, the design can be subject to
-                            alterations.</p>
-                        <p class="card-text">You can evolve with us, create you account today and send us feedbacks.</p>
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signup"
-                                data-bs-dismiss="modal">
-                            <i class="fa fa-user-circle"></i>
-                            Signup
-                        </button>
-                    </div>
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action " aria-current="true">
+                        <div class="row">
+                            <div class="col-3">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"/>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                                </svg>
+                            </div>
+                            <div class="col-7">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text">This is a wider card </p>
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-3">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"/>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                                </svg>
+                            </div>
+                            <div class="col-7">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text">This is a wider card </p>
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-3">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"/>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                                </svg>
+                            </div>
+                            <div class="col-7">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text">This is a wider card </p>
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-3">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"/>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                                </svg>
+                            </div>
+                            <div class="col-7">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text">This is a wider card </p>
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1"
+                       aria-disabled="true">
+                        <div class="row">
+                            <div class="col-3">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"/>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                                </svg>
+                            </div>
+                            <div class="col-7">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text">This is a wider card </p>
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -223,6 +337,7 @@
     </section>
 
     <section class="py-2 px-1 row">
+
         <div id="fancy-menu" class="col-md-2 py-2">
             <div class="card card-borderless py-2 px-2">
                 <div class="card-title">Menu</div>
@@ -260,136 +375,58 @@
 
         <div class="col-md-7 col-sm-7">
             <section id="web-caro" class="pt-1 pb-2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-6">
-                            <h3 class="mb-3">Your favorite channels</h3>
-                        </div>
-                        <div class="col-6 text-right">
-                            <a class="btn btn-secondary mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
-                               data-slide="prev">
-                                <i class="fa fa-arrow-left"></i>
-                            </a>
-                            <a class="btn btn-secondary mb-3 " href="#carouselExampleIndicators2" role="button"
-                               data-slide="next">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </div>
-                        <div class="col-m-12">
-                            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div class="row">
-                                            <div class="col-md-3 mb-3 text-center">
-                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: 140x140"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#777"/>
-                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                                </svg>
-                                                <h5 class="card-title mt-2 ">Samuel Mukalenge</h5>
-                                            </div>
-                                            <div class="col-md-3 mb-3 text-center">
-                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: 140x140"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#777"/>
-                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                                </svg>
-                                                <h5 class="card-title mt-2">Sahara Malay</h5>
-                                            </div>
-                                            <div class="col-md-3 mb-3 text-center">
-                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: 140x140"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#777"/>
-                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                                </svg>
-                                                <h5 class="card-title mt-2">Naseya Mukalenge</h5>
-                                            </div>
-                                            <div class="col-md-3 mb-3 text-center">
-                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: 140x140"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#777"/>
-                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                                </svg>
-                                                <h5 class="card-title mt-2">Julie Kangoma</h5>
-                                            </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="mb-3">Your favorite channels</h3>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="btn btn-secondary mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
+                           data-slide="prev">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                        <a class="btn btn-secondary mb-3 " href="#carouselExampleIndicators2" role="button"
+                           data-slide="next">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="col-m-12">
+                        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                {{if .Channels}}
+                                {{with .Channels}}
+                                {{range $i, $a:= .}}
+                                <div class="carousel-item {{if eq $i 0 }}active{{end}}">
+                                    <div class="row">
+                                        {{with $a.Channels}}
+                                        {{range .}}
+                                        <div class="col-md-3 mb-3 text-center">
+                                            <img class="channel" src="data:image/png;base64,{{.ImageBase64}}"/>
+                                            <h5 class="card-title mt-2 ">
+                                                <a class="text-decoration-none" onclick="myChannel({{.Id}},{{.Name}})">{{.Name}}</a>
+                                            </h5>
                                         </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="row">
-
-                                            <div class="col-md-3 mb-3 text-center">
-                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: 140x140"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#777"/>
-                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                                </svg>
-                                                <h5 class="card-title mt-2">Gideon Bernard</h5>
-                                            </div>
-                                            <div class="col-md-3 mb-3 text-center">
-                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: 140x140"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#777"/>
-                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                                </svg>
-                                                <h5 class="card-title mt-2">Boom Boom</h5>
-                                            </div>
-                                            <div class="col-md-3 mb-3 text-center">
-                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: 140x140"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#777"/>
-                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                                </svg>
-                                                <h5 class="card-title">Samuel Mukalenge</h5>
-                                            </div>
-                                            <div class="col-md-3 mb-3 text-center">
-                                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: 140x140"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#777"/>
-                                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                                </svg>
-                                                <h5 class="card-title mt-2">Stephan Steph</h5>
-                                            </div>
-                                        </div>
+                                        {{end}}
+                                        {{end}}
                                     </div>
                                 </div>
+                                {{end}}
+                                {{end}}
+                                {{end}}
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
 
+            </section>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {{with .Public}}
                 {{range .}}
                 <div class="col">
                     <div class="card shadow-sm video">
-                        <img class="cropped2" src="data:image/png;base64,{{.VideoData.FileType}}" width="100%" height="225"/>
+                        <img class="cropped2" src="data:image/png;base64,{{.VideoData.FileType}}" width="100%"
+                             height="225"/>
                         <a href="/play/{{.Video.Id}}" class="text-center"><i class="fas fa-play fa-4x"
-                                                         style="color: white; opacity: 75%"></i></a>
+                                                                             style="color: white; opacity: 75%"></i></a>
                         <div class="card-body">
                             <p class="card-text">{{.Video.Title}}</p>
                             <div class="d-flex justify-content-between align-items-center">
@@ -406,103 +443,23 @@
                 {{end}}
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action " aria-current="true">
-                    <div class="row">
-                        <div class="col-3">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                            </svg>
-                        </div>
-                        <div class="col-7">
-                            <h6 class="card-title">Card title</h6>
-                            <p class="card-text">This is a wider card </p>
-                        </div>
-                        <div class="col-2">
-                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="row">
-                        <div class="col-3">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                            </svg>
-                        </div>
-                        <div class="col-7">
-                            <h6 class="card-title">Card title</h6>
-                            <p class="card-text">This is a wider card </p>
-                        </div>
-                        <div class="col-2">
-                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="row">
-                        <div class="col-3">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                            </svg>
-                        </div>
-                        <div class="col-7">
-                            <h6 class="card-title">Card title</h6>
-                            <p class="card-text">This is a wider card </p>
-                        </div>
-                        <div class="col-2">
-                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="row">
-                        <div class="col-3">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                            </svg>
-                        </div>
-                        <div class="col-7">
-                            <h6 class="card-title">Card title</h6>
-                            <p class="card-text">This is a wider card </p>
-                        </div>
-                        <div class="col-2">
-                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">
-                    <div class="row">
-                        <div class="col-3">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="50"
-                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                            </svg>
-                        </div>
-                        <div class="col-7">
-                            <h6 class="card-title">Card title</h6>
-                            <p class="card-text">This is a wider card </p>
-                        </div>
-                        <div class="col-2">
-                            <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>
-                        </div>
-                    </div>
-                </a>
+
+        <div id="advert-tab-first" class="col-md-3">
+            <div id="channelDiv" class="card text-white bg-secondary mb-3" style="height: 100%;">
+                <div class="card-body" id="channelDivList" style="background-color: #1a1e21!important; border-radius: 3%">
+                    <i class="fa fa-star fa-1x"></i>
+                    <i class="fa fa-star fa-2x"></i>
+                    <i class="fa fa-star fa-3x" style="color: yellow"></i>
+                    <h5 class="card-title fw-lighter" style="color: yellow">Timtube Engineer</h5>
+                    <p class="card-text">We are still under construction, the design can be subject to
+                        alterations.</p>
+                    <p class="card-text">You can evolve with us, create you account today and send us feedbacks.</p>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signup"
+                            data-bs-dismiss="modal">
+                        <i class="fa fa-user-circle"></i>
+                        Signup
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -513,7 +470,7 @@
             <a href="#top">Back to top</a>
         </p>
         <p class="mb-1">Timtube is an entertainment platform</p>
-        <p class="mb-0">Designed and developed with love by <a href="ditkay.com">Ditkay</a> .</p>
+        <p class="mb-0">Designed and developed with love by <a href="http://ditkay.com" target="_blank">Ditkay</a> .</p>
     </div>
 </footer>
 <div class="modal fade " id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -528,10 +485,11 @@
                     <div class="form-group row">
                         <div class="col mb-3">
                             <input type="text" name="name" class="form-control form-control-user" id="exampleFirstName"
-                                   placeholder="First Name"required>
+                                   placeholder="First Name" required>
                         </div>
                         <div class="col mb-3">
-                            <input type="text" name="lastName" class="form-control form-control-user" id="exampleLastName"
+                            <input type="text" name="lastName" class="form-control form-control-user"
+                                   id="exampleLastName"
                                    placeholder="Last Name" required>
                         </div>
                     </div>
@@ -562,13 +520,14 @@
     <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content bg-secondary">
             <div class="modal-header">
-                <h5 class="modal-title" >Login</h5>
+                <h5 class="modal-title">Login</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form class="user" action="/user/account/login" method="post">
                     <div class="mb-3">
-                        <input type="email" name="email" class="form-control form-control-user"aria-describedby="emailHelp"
+                        <input type="email" name="email" class="form-control form-control-user"
+                               aria-describedby="emailHelp"
                                placeholder="Enter Email Address...">
                     </div>
                     <div class="mb-3">
@@ -582,10 +541,11 @@
                                 Me</label>
                         </div>
                     </div>
-                    <button  type="submit" class="btn btn-warning btn-user btn-block">
+                    <button type="submit" class="btn btn-warning btn-user btn-block">
                         Login
                     </button>
-                    <button type="button" class="btn btn-warning btn-user btn-block" data-bs-toggle="modal" data-bs-target="#signup" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-warning btn-user btn-block" data-bs-toggle="modal"
+                            data-bs-target="#signup" data-bs-dismiss="modal">
                         <i class="fa fa-user-circle"></i>
                         Signup
                     </button>
@@ -596,7 +556,6 @@
     </div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -609,30 +568,70 @@
 
 </body>
 <script>
-    window.onload = function (){
-        var mainPlayerVideo = "";
+    window.onload = function () {
+        // var mainPlayerVideo = "";
         var mainPlayer = document.getElementById("movie");
         console.log("get movie div");
-        var video = {{.VideoData.Id}};
-        if (video!==""){
+        var video = {{.Video.Id}};
+        if (video !== "") {
             console.log("get movie div");
-            // mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="data:video/mp4;base64,'+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
-            // mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="http://172.18.0.5:8000/vid?videoId='+video+'" type="video/mp4"> Your browser does not support the video tag.</video>';
-            mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="http://74.208.50.103:8000/vid?videoId='+video+'" type="video/mp4"> Your browser does not support the video tag.</video> <br/>';
-
-        }else{
-            mainPlayerVideo = '<svg className="bd-placeholder-img card-img-top" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg><br/>'
+            let mainPlayerVideo = '<video width="100%" height="100%" controls> <source src="http://74.208.50.103:8000/vid?videoId=' + video + '" type="video/mp4"> Your browser does not support the video tag.</video> <br/>';
+            mainPlayer.innerHTML = mainPlayerVideo;
         }
-        mainPlayer.innerHTML = mainPlayerVideo;
     }
-    var width = screen.width;
-    console.log(width);
-    if (screen.width <= 390) {
-        console.log(width);
-        document.getElementById("video-info").setAttribute("hidden", true);
-        document.getElementById("advert-tab-first").setAttribute("hidden", true);
-        document.getElementById("fancy-menu").setAttribute("hidden", true);
-        document.getElementById("web-caro").setAttribute("hidden", true);
+
+    function myChannel(id,name) {
+        let channelDiv = document.getElementById("channelDiv")
+        let channelDivList = document.getElementById("channelDivList")
+        let channelVideos = [];
+        if (id) {
+            let url = 'channel/' + id;
+            fetch(url).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                for (const datum of data) {
+                    // console.log(datum);
+                    let imageData = datum.VideoData.fileType.trim();
+                    let htmlComponentList = '   <a href="#" class="list-group-item list-group-item-action " aria-current="true">\n' +
+                        '     <div class="row">\n' +
+                        '      <div class="col-3">\n' +
+                        '<img  class="channel-video " src="data:image/png;base64,'+imageData.trim()+' "/>' +
+                        '</div>\n' +
+                        '  <div class="col-7">\n' +
+                        '      <h6 class="card-title">'+datum.Video.title+'</h6>\n' +
+                        '      <p class="card-text">'+datum.Video.description+'</p>\n' +
+                        '   </div>\n' +
+                        ' <div class="col-2">\n' +
+                        '      <i class="fa fa-play-circle fa-2x" style="color: #4f5050"></i>\n' +
+                        '  </div>\n' +
+                        '</div>\n' +
+                        '</a>\n' ;
+                    channelVideos.push(htmlComponentList)
+                }
+                // console.log(channelVideos);
+                if(channelVideos){
+                    let channelComponent= ' <div class="card text-white bg-secondary mb-3" style="height: 100%;">\n' +
+                        '                <div class="card-body text-center" style="background-color: #1a1e21!important; border-radius: 3%">\n' +
+                        '                    <i class="fa fa-video fa-3x" style="color: #ffc107"></i>\n' +
+                        '                    <h5 class="card-title fw-lighter" style="color: #ffc107"">'+ name+'</h5>\n' +
+                        '   <div class="list-group">'+channelVideos+'</div>\n' +
+                        '<button type="button" class="btn btn-warning mt-2" data-bs-toggle="modal" data-bs-target="#signup"\n' +
+                        '                            data-bs-dismiss="modal">\n' +
+                        '                        <i class="fa fa-user-circle"></i>\n' +
+                        '                        Signup\n' +
+                        '                    </button>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' ;
+                    channelDivList.remove();
+                    channelDiv.innerHTML = channelComponent;
+                }
+            }).catch(function () {
+                console.log("Booo");
+            });
+
+
+        }
+
     }
 
 

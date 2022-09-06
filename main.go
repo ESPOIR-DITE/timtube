@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	//_ "github.com/MartinHeinz/go-project-blueprint/cmd/blueprint/docs"
 	"github.com/alexedwards/scs/v2"
 	"log"
 	"net/http"
@@ -26,6 +27,18 @@ func Environment() *config.Env {
 	return env
 }
 
+// @title Timtube web
+// @version 1.0
+// @description Timtube client interface.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.email espoir@ditkay.com
+
+// @license.name MIT
+// @license.url http://timtube.org/LICENCE
+
+// @BasePath /api/v1
 func main() {
 	addr := flag.String("addr", ":2221", "HTTP network address")
 	flag.Parse()
